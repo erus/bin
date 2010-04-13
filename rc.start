@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# start script name
+PRG=start.sh
+
+# enter the loop!
+for userpath in /home/*; do
+	user=`basename $userpath`
+	if [ -x $userpath/$PRG ]; then
+		su -c $user "$userpath/$PRG &"
+	fi
+done
