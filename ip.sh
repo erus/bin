@@ -1,24 +1,38 @@
 #!/bin/sh
 
-# Which interface
-case "$1" in
-	*)
-		IFACE="$1"
-	;;
-esac
-
 # Default interface
 if [ -z "$@" ]; then
 	IFACE=wlan0 # default interface
+else
+	case "$1" in
+		*)
+			IFACE="$1"
+		;;
+	esac
 fi
 
 # Clean output
-function ip_output {
-	ifconfig $IFACE | grep 'inet addr' | cut -d: -f2 | sed s/'  Bcast'//
+function local_ip {
+	LOCALIP=`ifconfig $IFACE | grep 'inet addr' | cut -d: -f2 | sed s/'  Bcast'//`
 }
 
-if [ -z "`ip_output`" ]; then
+function public_ip {
+	PUBLICIP=`wget -qO - http://www.whatismyip.org/`
+}
+
+# Define variables
+local_ip
+public_ip
+
+# Test output
+if [ -z "$LOCALIP" ]; then
 	echo "$IFACE has no IP."
 else
-	ip_output
+	echo "$LOCALIP (local)"
+fi
+
+if [ -z "$PUBLICIP" ]; then
+	echo "Public IP cannot be retrieved."
+else
+	echo "$PUBLICIP (public)"
 fi
