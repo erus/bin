@@ -33,6 +33,7 @@ FEHSCRIPT="$HOME/.fehbg"
 
 # Local or remote file?
 if [ "`echo $WALLPATH | sed s_//_%_ | cut -d% -f1`" = "http:" ]; then
+	if [ -e "$WALLDIR/$WALLNAME" ]; then rm "$WALLDIR/$WALLNAME"; fi
 	wget -P $WALLDIR $WALLPATH # download remote file
 else
 	mv $WALLPATH $WALLDIR # move it to default $WALLDIR

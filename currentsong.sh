@@ -13,7 +13,7 @@ FIFOLOOP=$HOME/.weechat/weechat_fifo_`pidof weechat-curses`
 
 # The function which does the output work
 function fifo_echo {
-	echo -e "$NETWORK.$CHANNEL *$CURRENT" > $FIFOLOOP
+	echo -e "$NETWORK.$CHANNEL */me $CURRENT" > $FIFOLOOP
 }
 
 # Here we go

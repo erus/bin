@@ -2,7 +2,7 @@
 
 # Default interface
 if [ -z "$@" ]; then
-	IFACE=wlan0 # default interface
+	IFACE=eth0 # default interface
 else
 	case "$1" in
 		*)
