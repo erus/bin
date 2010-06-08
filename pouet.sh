@@ -18,9 +18,10 @@ get_rand() {
 SSHHOST=rootards.org
 SSHUSER=addikt1ve
 SSHPATH=$HOME/public_html/files
-SSHNAME=`get_rand`.`basename "$1" | tr ' ' '_'`
+SSHNAME=`get_rand`.`basename "$1" | tr ' ' '_' | sed s/://g`
 DISTURL=http://rootards.org/~addikt1ve/files/$SSHNAME
 
 # Upload file
 scp "$1" $SSHUSER@$SSHHOST:$SSHPATH/$SSHNAME
+echo $DISTURL
 echo $DISTURL | xclip

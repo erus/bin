@@ -14,10 +14,19 @@ echo '     |_____|'
 # Variables
 SHOTSDIR=$HOME/shots
 TODAYDIR=`date +%Y-%m-%d`
-SHOTNAME=koin-`date +%T`.png
+SHOTNAME=koin-`date +%H-%M-%S`.png
+# full path
+SHOTPATH="$SHOTSDIR/$TODAYDIR/$SHOTNAME"
+# remove following variable if you don't want to upload your shots
+UPLOADER=ompload
 
 # Directory test
 [ -d $SHOTSDIR/$TODAYDIR ] || mkdir -p $SHOTSDIR/$TODAYDIR
 
 # Cheese!
-scrot $SHOTSDIR/$TODAYDIR/$SHOTNAME
+scrot $SHOTPATH
+
+# Upload
+if [ -n "$UPLOADER" ]; then
+	$UPLOADER $SHOTPATH
+fi

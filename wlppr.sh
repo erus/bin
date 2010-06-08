@@ -4,7 +4,7 @@
 # AddiKT1ve <the.addikt1ve@gmail.com>
 
 # Check arguments
-if [ -z "$@" ]; then
+if [ "$#" = "0" ]; then
 	echo "Usage: $0 [--scale | --center] file"
 	exit 1
 fi
@@ -33,8 +33,9 @@ FEHSCRIPT="$HOME/.fehbg"
 
 # Local or remote file?
 if [ "`echo $WALLPATH | sed s_//_%_ | cut -d% -f1`" = "http:" ]; then
-	if [ -e "$WALLDIR/$WALLNAME" ]; then rm "$WALLDIR/$WALLNAME"; fi
-	wget -P $WALLDIR $WALLPATH # download remote file
+	if [ ! -e "$WALLDIR/$WALLNAME" ]; then
+		wget -P $WALLDIR $WALLPATH # download remote file
+	fi
 else
 	mv $WALLPATH $WALLDIR # move it to default $WALLDIR
 fi
