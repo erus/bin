@@ -35,7 +35,17 @@ UPLOADER=koinup
 [ -d $SHOTSDIR/$TODAYDIR ] || mkdir -p $SHOTSDIR/$TODAYDIR
 
 # Cheese!
-scrot $SHOTPATH
+if [ "$DISPLAY" != "" ]; then
+	scrot $SHOTPATH
+else
+	fbgrab $SHOTPATH
+fi
+
+# Lighten the png file
+where advpng &> /dev/null
+if [ $? -eq 0 ] ; then
+	advpng -z4 $SHOTPATH
+fi
 
 # Upload
 if [ -n "$UPLOADER" ]; then
