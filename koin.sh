@@ -17,11 +17,11 @@ echo '     |_____|'
 # koin.me uploader
 # send me your SSH public key to get a free access :-)
 koinup() {
-        user=$USER
-        rdir="~/htdocs/$user/$TODAYDIR"
-        file=`basename $1`
-        cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
-        echo "http://koin.me/$user/$TODAYDIR/$file"
+	user=$USER
+	rdir="~/htdocs/$user/$TODAYDIR"
+	file=`basename $1`
+	cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
+	echo "http://koin.me/$user/$TODAYDIR/$file"
 }
 
 
@@ -30,7 +30,7 @@ koinup() {
 
 # Cheese!
 if [ -n "$DISPLAY" ]; then
-	whereis -b scrot | cut -d: -f2 | grep scrot > /dev/null 2>&1 #This is uggly, but where is a bashism, and whereis -b returns always 0
+	whereis -b scrot | cut -d: -f2 | grep scrot > /dev/null 2>&1 #This is uggly, but where is a bashism, and whereis returns always 0
 	if [ $? -eq 0 ] ; then
 	scrot $SHOTPATH
 	else
@@ -38,7 +38,8 @@ if [ -n "$DISPLAY" ]; then
 		if [ $? -eq 0 ] ; then
 		import -window root $SHOTPATH
 		else
-		echo "You should have either scrot or import (form ImageMagick) installed"
+		echo "You should have either scrot or import (form ImageMagick) installed" >&2
+		exit 1
 		fi
 	fi
 else
@@ -50,7 +51,8 @@ else
 		if [ $? -eq 0 ] ; then
 		fbshot $SHOTPATH
 		else
-		echo "You should have either fbgrab or fbshot installed"
+		echo "You should have either fbgrab or fbshot installed" >&2
+		exit 1
 		fi
 	fi
 fi
