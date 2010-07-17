@@ -17,11 +17,11 @@ echo '     |_____|'
 # koin.me uploader
 # send me your SSH public key to get a free access :-)
 koinup() {
-	user=$USER
-	rdir="~/htdocs/$user/$TODAYDIR"
-	file=`basename $1`
-	cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
-	echo "http://koin.me/$user/$TODAYDIR/$file"
+        user=$USER
+        rdir="~/htdocs/$user/$TODAYDIR"
+        file=`basename $1`
+        cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
+        echo "http://koin.me/$user/$TODAYDIR/$file"
 }
 
 
@@ -30,11 +30,11 @@ koinup() {
 
 # Cheese!
 if [ -n "$DISPLAY" ]; then
-	whereis -b scrot | cut -d: -f2 | grep scrot > /dev/null 2>&1 #This is uggly, but where is a bashism, and whereis returns always 0
+	which scrot > /dev/null 2>&1
 	if [ $? -eq 0 ] ; then
 	scrot $SHOTPATH
 	else
-		whereis -b import | cut -d: -f2 | grep import > /dev/null 2>&1
+		which import > /dev/null 2>&1
 		if [ $? -eq 0 ] ; then
 		import -window root $SHOTPATH
 		else
@@ -43,11 +43,11 @@ if [ -n "$DISPLAY" ]; then
 		fi
 	fi
 else
-	whereis -b fbgrab | cut -d: -f2 | grep fbgrab > /dev/null 2>&1
+	which fbgrab > /dev/null 2>&1
 	if [ $? -eq 0 ] ; then
 	fbgrab $SHOTPATH
 	else
-		whereis -b fbshot | cut -d: -f2 | grep fbshot > /dev/null 2>&1
+		which fbshot > /dev/null 2>&1
 		if [ $? -eq 0 ] ; then
 		fbshot $SHOTPATH
 		else
@@ -58,14 +58,14 @@ else
 fi
 
 # Enlight the png file
-whereis -b advpng | cut -d: -f2 | grep advpng > /dev/null 2>&1
+which advpng > /dev/null 2>&1
 if [ $? -eq 0 ] ; then
 	advpng -q -z4 $SHOTPATH
 fi
 
 # Upload
 if [ -n "$UPLOADER" ]; then
-	whereis -b xclip | cut -d: -f2 | grep xclip > /dev/null 2>&1
+	which xclip > /dev/null 2>&1
 	if [ $? -eq 0 ] ; then
 	$UPLOADER $SHOTPATH 1>&2 | xclip
 	else
