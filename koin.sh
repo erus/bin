@@ -17,11 +17,11 @@ echo '     |_____|'
 # koin.me uploader
 # send me your SSH public key to get a free access :-)
 koinup() {
-        user=$USER
-        rdir="~/htdocs/$user/$TODAYDIR"
-        file=`basename $1`
-        cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
-        echo "http://koin.me/$user/$TODAYDIR/$file"
+	user=$USER
+	rdir="~/htdocs/$user/$TODAYDIR"
+	file=`basename $1`
+	cat $1 | ssh koin@koin.me "mkdir -p $rdir ; cat >> $rdir/$file"
+	echo "http://koin.me/$user/$TODAYDIR/$file"
 }
 
 
